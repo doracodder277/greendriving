@@ -9,9 +9,28 @@
 	<p>gyro.getFeatures: <span id="features"></span></p>
 	<span id="example"></span>
 	<script src="js/gyro.js"></script>
+	<h2><span id="score"></span></h2><br>
+	<h2><span id="event"></span></h2><br>
 	<script>
 		var gravity = [0,0,0];
 		var linear_acceleration = [0,0,0];
+		var pothole_events = [];
+		var norm_accs = [0];
+		function update_score(){
+			var b = document.getElementById('score');
+			var sum = norm_accs.reduce(function(a, b) { return a + b; });
+			var avg = sum / norm_accs.length;
+			b.innerHTML = "<p>" + avg + "</p>";
+		}
+		function pothole_event(acc){
+			pothole_events.push(acc);
+			var b = document.getElementById('event');
+			var vals = "";
+			for (i = 0; i < pothole_events.length; i++){
+				vals += "x = " +  pothole_events[i][0]+ "y = " + pothole_events[i][1] + "z = "  + pothole_events[i][2] + "</p>" ;
+			}
+			b.innerHTML = vals;
+		}
 
 		gyro.startTracking(function(o) {
 			var b = document.getElementById('example'),
@@ -30,26 +49,12 @@
 										"<p> alpha = " + o.alpha + "</p>" +
 										"<p> beta = " + o.beta + "</p>" +
 										"<p> gamma = " + o.gamma + "</p>";
+			var norm_acc = Math.sqrt(linear_acceleration[0] ** 2 + linear_acceleration[1] ** 2 + linear_acceleration[2]**2);
+			if (norm_acc > 5){
+				pothole_event(linear_acceleration);
+			}
+			norm_accs.push(norm_acc);
+			update_score();
 		});
 	</script>
 </body>
-
-
-
-     public void onSensorChanged(SensorEvent event)
-     {
-          // alpha is calculated as t / (t + dT)
-          // with t, the low-pass filter's time-constant
-          // and dT, the event delivery rate
-
-          final float alpha = 0.8;
-
-          gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
-          gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
-          gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
-
-          linear_acceleration[0] = event.values[0] - gravity[0];
-          linear_acceleration[1] = event.values[1] - gravity[1];
-          linear_acceleration[2] = event.values[2] - gravity[2];
-     }
- 
