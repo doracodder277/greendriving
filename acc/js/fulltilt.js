@@ -164,7 +164,7 @@ FULLTILT.getDeviceOrientation = function(options) {
 
 		}).catch(function() {
 
-			control.stop();
+			//control.stop();
 			reject('DeviceOrientation is not supported');
 
 		});
