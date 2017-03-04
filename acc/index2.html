@@ -1,3 +1,16 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="utf-8" /> 
+  <title>gyro.js - easy access to your web browsers built in accelerometer's and gyroscope's</title>
+</head>
+<body>
+  <p>This Example just print's the raw accelerometer and gyro data. Will return null if no device information is found.</p>
+  <p>gyro.getFeatures: <span id="features"></span></p>
+  <span id="example"></span>
+  <script src="js/fulltilt.js"></script>
+
+
 <script>
   // Create a new FULLTILT Promise for e.g. *compass*-based deviceorientation data
   var promise = new FULLTILT.getDeviceOrientation({ 'type': 'world' });
@@ -29,10 +42,16 @@
       var matrix = deviceOrientation.getScreenAdjustedMatrix();
       var euler = deviceOrientation.getScreenAdjustedEuler();
 
+
       // Do something with our quaternion, matrix, euler objects...
       console.debug(quaternion);
       console.debug(matrix);
       console.debug(euler);
+      var b = document.getElementById('example'),
+
+      b.innerHTML = "<p> alpha = " + euler.alpha + "</p>" +
+                    "<p> beta = " + euler.beta + "</p>" +
+                    "<p> gamma = " + euler.gamma + "</p>";
 
     }
 
@@ -41,3 +60,4 @@
 
   })();
 </script>
+</body>
