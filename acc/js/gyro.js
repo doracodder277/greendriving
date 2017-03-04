@@ -48,7 +48,7 @@
 	/**
 	 * @public
 	 */
-	gyro.frequency = 500; //ms
+	gyro.frequency = 50; //ms
 
 	gyro.calibrate = function() {
 		for (var i in measurements) {
