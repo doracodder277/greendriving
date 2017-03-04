@@ -9,8 +9,8 @@
 	<p>gyro.getFeatures: <span id="features"></span></p>
 	<span id="example"></span>
 	<script src="js/gyro.js"></script>
-	<h2><span id="score"></span></h2><br>
-	<h2><span id="event"></span></h2><br>
+	<span id="score"></span></h2><br>
+	<span id="event"></span></h2><br>
 	<script>
 		var gravity = [0,0,0];
 		var linear_acceleration = [0,0,0];
@@ -25,10 +25,11 @@
 		function pothole_event(acc){
 			pothole_events.push(acc);
 			var b = document.getElementById('event');
-			var vals = "";
+			var vals = "Events: ";
 			for (i = 0; i < pothole_events.length; i++){
-				vals += "x = " +  pothole_events[i][0]+ "y = " + pothole_events[i][1] + "z = "  + pothole_events[i][2] + "</p>" ;
+				vals += pothole_events[i] + ", " ;
 			}
+			vals += "</p>";
 			b.innerHTML = vals;
 		}
 
@@ -51,7 +52,7 @@
 										"<p> gamma = " + o.gamma + "</p>";
 			var norm_acc = Math.sqrt(linear_acceleration[0] ** 2 + linear_acceleration[1] ** 2 + linear_acceleration[2]**2);
 			if (norm_acc > 5){
-				pothole_event(linear_acceleration);
+				pothole_event(norm_acc);
 			}
 			norm_accs.push(norm_acc);
 			update_score();
