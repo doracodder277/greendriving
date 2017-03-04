@@ -10,13 +10,23 @@
 	<span id="example"></span>
 	<script src="js/gyro.js"></script>
 	<script>
+		var gravity = [0,0,0];
+		var linear_acceleration = [0,0,0];
+
 		gyro.startTracking(function(o) {
 			var b = document.getElementById('example'),
 					f = document.getElementById('features');
+			var alpha = 0.8;
+			gravity[0] = alpha * gravity[0] + (1 - alpha) * o.x;
+			gravity[1] = alpha * gravity[1] + (1 - alpha) * o.y;
+			gravity[2] = alpha * gravity[2] + (1 - alpha) * o.z;
+			linear_acceleration[0] = o.x - gravity[0];
+          	linear_acceleration[1] = o.y - gravity[1];
+          	linear_acceleration[2] = o.z - gravity[2];
 			f.innerHTML = gyro.getFeatures();
-			b.innerHTML = "<p> x = " + o.x + "</p>" +
-										"<p> y = " + o.y + "</p>" +
-										"<p> z = " + o.z + "</p>" +
+			b.innerHTML = "<p> x = " + linear_acceleration[0] + "</p>" +
+										"<p> y = " + linear_acceleration[1]+ "</p>" +
+										"<p> z = " + linear_acceleration[2] + "</p>" +
 										"<p> alpha = " + o.alpha + "</p>" +
 										"<p> beta = " + o.beta + "</p>" +
 										"<p> gamma = " + o.gamma + "</p>";
@@ -24,3 +34,22 @@
 	</script>
 </body>
 
+
+
+     public void onSensorChanged(SensorEvent event)
+     {
+          // alpha is calculated as t / (t + dT)
+          // with t, the low-pass filter's time-constant
+          // and dT, the event delivery rate
+
+          final float alpha = 0.8;
+
+          gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+          gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+          gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+
+          linear_acceleration[0] = event.values[0] - gravity[0];
+          linear_acceleration[1] = event.values[1] - gravity[1];
+          linear_acceleration[2] = event.values[2] - gravity[2];
+     }
+ 
