@@ -1,0 +1,9 @@
+{
+     "name": "cluster",
+     "children": [
+      {"name": "AgglomerativeCluster", "size": 1},
+      {"name": "CommunityStructure", "size": 2},
+      {"name": "HierarchicalCluster", "size": 3},
+      {"name": "MergeEdge", "size": 4}
+     ],"size" : 10
+}

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'SHAIcon';
+    src: url('../font/sha-icon-font/SHA_icon_FONT.ttf');
+    /*src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');*/
+    font-weight: normal;
+    font-style: normal;
+}
+
+.shaicon { font-family: SHAIcon; width: 42px;      height: 62px;      overflow: hidden;      left: 15px;      top: 22px;display: inline-block;      vertical-align: middle;font-size: xx-large;}
