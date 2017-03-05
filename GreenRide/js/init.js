@@ -323,3 +323,5 @@ $("#remove").click(function()
 });
 
 
+map.setCenter({lat:52.473685, lng:13.427955});
+map.setZoom(13);
